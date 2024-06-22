@@ -3,5 +3,7 @@
     "jquery": "^3.7.1",
     "mathjs": "^13.0.0"
   },
-  "type": "module",
+  "scripts": {
+    "dev": "webpack-dev-server --config webpack.dev.js"
+  }
 }
