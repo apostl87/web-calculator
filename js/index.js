@@ -3,7 +3,7 @@ const result = document.getElementById('result');
 const keys = document.querySelectorAll('.keys div');
 const registerFlag = document.getElementById('result-register');
 let register = null;
-let lastResult = null;
+let lastResult = 0;
 
 // Event listeners for specific buttons and invoked functions
 document.getElementById('clear').addEventListener('click', () => {
