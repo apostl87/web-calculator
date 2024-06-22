@@ -64,8 +64,9 @@ function deleteSelectionOrAtCaret() {
 }
 
 function deleteSelection() {
-    display.value = display.value.slice(0, display.selectionStart) + display.value.slice(display.selectionEnd);
-    display.setSelectionRange(display.selectionStart, display.selectionStart);
+    const sav = display.selectionStart
+    display.value = display.value.slice(0, sav) + display.value.slice(display.selectionEnd);
+    display.setSelectionRange(sav, sav);
 }
 
 function deleteAtCaretPosition(offset = 0) {
