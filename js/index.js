@@ -39,11 +39,16 @@ function substituteAns(expr) {
 function insertAtCaret(input) {
     // Prevent all characters except for numbers, math operators and common parentheses
     if (display.value.length < settings.maxlengthinput) {
-        const sav = display.selectionStart;
+        let sav = display.selectionStart;
         if (sav < display.selectionEnd) {
             deleteSelection();
         }
         display.value = display.value.slice(0, display.selectionStart) + input + display.value.slice(display.selectionStart);
+        // Add automatical insertion of ansString if an operator is the only character contained in the display
+        if (settings.binaryMathOperators.includes(display.value)) {
+            display.value = ansString + display.value;
+            sav += ansString.length
+        }
         display.setSelectionRange(sav + input.length, sav + input.length);
     }
 }
