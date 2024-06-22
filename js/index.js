@@ -39,12 +39,12 @@ function substituteAns(expr) {
 function insertAtCaret(input) {
     // Prevent all characters except for numbers, math operators and common parentheses
     if (display.value.length < settings.maxlengthinput) {
-        if (display.selectionStart < display.selectionEnd) {
+        const sav = display.selectionStart;
+        if (sav < display.selectionEnd) {
             deleteSelection();
         }
         display.value = display.value.slice(0, display.selectionStart) + input + display.value.slice(display.selectionStart);
-        
-        display.setSelectionRange(selection[0] + input.length, selection[0] + input.length);
+        display.setSelectionRange(sav + input.length, sav + input.length);
     }
 }
 
