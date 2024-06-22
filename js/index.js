@@ -3,6 +3,7 @@ const result = document.getElementById('result');
 const keys = document.querySelectorAll('.keys div');
 const registerFlag = document.getElementById('result-register');
 let register = null;
+let lastResult = null;
 
 // Event listeners for specific buttons and invoked functions
 document.getElementById('clear').addEventListener('click', () => {
@@ -17,14 +18,21 @@ document.querySelector('#keys .btn-calc').addEventListener('click', () => {
 
 function doCalculation() {
     try {
-        result.value = math.evaluate(display.value);
+        let input = substituteAns(display.value);
+        result.value = math.evaluate(input);
+        lastResult = result.value;
         if (result.value == 'undefined') {
             result.value = '';
+            lastResult = 0; 
         }
     } catch (error) {
         result.value = 'Syntax Error';
     }
     display.setSelectionRange(0, display.value.length);
+}
+
+function substituteAns(expr) {
+    return expr.replace(/ans/g, lastResult);
 }
 
 // Callback functions and invoked functions
@@ -147,7 +155,8 @@ function keepSanity() {
     // Keep input display element in focus; Ensures that input is always processed and that caret is displayed
     display.focus();
     // Keep input display element free from not allowed characters
-    display.value = display.value.replace(new RegExp('[^' + settings.allowedCharacters + ']', 'g'), '');
+    regex = new RegExp('[^' + settings.allowedCharacters + '|^' + '|^'.join(settings.allowedStrings) + ']', 'g')
+    display.value = display.value.replace(regex, '');
     // Keep input display element size according to the setting
     display.value = display.value.slice(0, settings.maxlengthinput);
     // Keep the register tag up to date
