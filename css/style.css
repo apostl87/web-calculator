@@ -141,11 +141,13 @@ body {
 
 #manual td { 
     background-color: hsl(0, 0%, 80%);
-    padding: 2px;
+    padding: 4px;
+    border-radius: 5px;
 }
 
 .manual-table {
-    padding-top: 20px
+    padding-top: 14px;
+    border-radius: 10px;
 }
 
 .manual-key {
