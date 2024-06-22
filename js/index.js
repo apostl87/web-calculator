@@ -201,7 +201,7 @@ function getManualTableContainer() {
     return result;
 }
 manual.innerHTML = `
-<div id="manual">
+<div class="manual">
     <table class="manual manual-table" align="center">
         ${getManualTableContainer()}
     </table>

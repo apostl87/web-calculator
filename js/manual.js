@@ -1,6 +1,6 @@
 const manualItems = {
     ans: 'Last result',
-    '**': 'Power operator (used instead of ^)',
+    '^ / **': 'Power operator (** is used for the display, instead of ^)',
     MS: 'Memory Save',
     MR: 'Memory Recall',
     CLEAR: 'Clear the display, the result and the register',
