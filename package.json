@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "jquery": "^3.7.1",
-    "mathjs": "^13.0.0"
+    "mathjs": "^13.0.0",
+    "webpack-dev-server": "^5.0.4"
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js"
