@@ -144,8 +144,6 @@ display.addEventListener("keydown", function (event) {
 // General program behavior
 //
 function keepSanity() {
-    // Keep input display element in focus; Ensures that input is always processed and that caret is displayed
-    display.focus();
     // Keep input display element free from not allowed characters
     display.value = display.value.replace(new RegExp('[^' + settings.allowedCharacters + ']', 'g'), '');
     // Keep input display element size according to the setting
