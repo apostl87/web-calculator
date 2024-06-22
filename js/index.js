@@ -2,6 +2,7 @@ const display = document.getElementById('display');
 const result = document.getElementById('result');
 const keys = document.querySelectorAll('.keys div');
 const registerFlag = document.getElementById('result-register');
+const manual = document.getElementById('manual');
 let register = null;
 let lastResult = 0;
 
@@ -18,12 +19,12 @@ document.querySelector('#keys .btn-calc').addEventListener('click', () => {
 
 function doCalculation() {
     try {
-        let input = substituteAns(display.value);
+        let input = parseInput(display.value);
         result.value = math.evaluate(input);
         lastResult = result.value;
         if (result.value == 'undefined') {
             result.value = '';
-            lastResult = 0; 
+            lastResult = 0;
         }
     } catch (error) {
         result.value = 'Syntax Error';
@@ -31,8 +32,13 @@ function doCalculation() {
     display.setSelectionRange(0, display.value.length);
 }
 
-function substituteAns(expr) {
-    return expr.replace(/ans/g, lastResult);
+function parseInput(expr) {
+    // Replace ansString
+    regex = new RegExp(ansString, 'g');
+    expr = expr.replace(regex, lastResult);
+    // Replace ** operator by ^
+    expr = expr.replace(/\*\*/g, '^');
+    return expr
 }
 
 // Callback functions and invoked functions
@@ -60,6 +66,10 @@ function insertAtPosition(input, position) {
     }
 }
 
+function insertAns() {
+    insertAtCaret(ansString);
+}
+
 function deleteSelectionOrAtCaret() {
     if (display.selectionStart < display.selectionEnd) {
         deleteSelection();
@@ -72,6 +82,8 @@ function deleteSelection() {
     const sav = display.selectionStart
     display.value = display.value.slice(0, sav) + display.value.slice(display.selectionEnd);
     display.setSelectionRange(sav, sav);
+    // Keep input display consistent in terms of allowed string
+    deleteUnallowedStrings();
 }
 
 function deleteAtCaretPosition(offset = 0) {
@@ -80,10 +92,29 @@ function deleteAtCaretPosition(offset = 0) {
     } else {
         display.value = display.value.slice(0, display.selectionStart + offset) + display.value.slice(display.selectionStart + offset + 1);
     }
+    // Keep input display consistent in terms of allowed string
+    deleteUnallowedStrings();
 }
 
 function deleteAtPosition(position) {
     display.value = display.value.slice(0, position) + display.value.slice(position + 1);
+    // Keep input display consistent in terms of allowed string
+    deleteUnallowedStrings();
+}
+
+function deleteUnallowedStrings() {
+    regex = /[a-zA-Z]+/g;
+    const matches = [...display.value.matchAll(regex)];
+    matches.forEach((m) => {
+        if (!settings.allowedStrings.includes(m[0])) {
+            let sav = display.selectionStart;
+            if (display.selectionStart > m.index) {
+                sav -= m[0].length;
+            }
+            display.value = display.value.slice(0, m.index) + display.value.slice(m.index + m[0].length);
+            display.setSelectionRange(sav, sav);
+        }
+    })
 }
 
 function plusOrMinus() {
@@ -129,7 +160,9 @@ function storeInRegister() {
 }
 
 function recallFromRegister() {
-    insertAtCaret(register);
+    if (register) {
+        insertAtCaret(register);
+    }
 }
 
 function updateRegisterFlag() {
@@ -158,14 +191,12 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
-
 // General program behavior
-//
 function keepSanity() {
     // Keep input display element in focus; Ensures that input is always processed and that caret is displayed
     display.focus();
     // Keep input display element free from not allowed characters
-    regex = new RegExp('[^' + settings.allowedCharacters + '|^' + settings.allowedStrings.join('|^') + ']', 'g')
+    let regex = new RegExp('[^' + settings.allowedCharacters + settings.allowedStrings.join('') + ']', 'g')
     display.value = display.value.replace(regex, '');
     // Keep input display element size according to the setting
     display.value = display.value.slice(0, settings.maxlengthinput);
