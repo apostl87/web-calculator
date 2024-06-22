@@ -191,6 +191,20 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
+
+// Print manual
+function getManualTableContainer() {
+    let result = ``
+    for (const [key, value] of Object.entries(manualItems)) {
+        result += `<tr><td class='manual manual-key'>${key}</td><td class='manual manual-value'>${value}</td></tr>`
+    }
+    return result;
+}
+manual.innerHTML = `<h4>Manual</h4>
+<table class="manual">
+    ${getManualTableContainer()}
+</table>`
+
 // General program behavior
 function keepSanity() {
     // Keep input display element in focus; Ensures that input is always processed and that caret is displayed
