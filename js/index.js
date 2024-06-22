@@ -200,10 +200,12 @@ function getManualTableContainer() {
     }
     return result;
 }
-manual.innerHTML = `<h4>Manual</h4>
-<table class="manual">
-    ${getManualTableContainer()}
-</table>`
+manual.innerHTML = `
+<div id="manual">
+    <table class="manual manual-table" align="center">
+        ${getManualTableContainer()}
+    </table>
+</div>`
 
 // General program behavior
 function keepSanity() {

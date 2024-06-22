@@ -134,3 +134,20 @@ body {
 .btn-calc:active {
     background-color: hsl(191, 44%, 60%);
 }
+
+#manual {
+    max-width: 400px;
+}
+
+#manual td { 
+    background-color: hsl(0, 0%, 80%);
+    padding: 2px;
+}
+
+.manual-table {
+    padding-top: 20px
+}
+
+.manual-key {
+    font-weight: bold;
+}
