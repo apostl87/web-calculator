@@ -160,7 +160,7 @@ function keepSanity() {
     // Keep input display element in focus; Ensures that input is always processed and that caret is displayed
     display.focus();
     // Keep input display element free from not allowed characters
-    regex = new RegExp('[^' + settings.allowedCharacters + '|^' + '|^'.join(settings.allowedStrings) + ']', 'g')
+    regex = new RegExp('[^' + settings.allowedCharacters + '|^' + settings.allowedStrings.join('|^') + ']', 'g')
     display.value = display.value.replace(regex, '');
     // Keep input display element size according to the setting
     display.value = display.value.slice(0, settings.maxlengthinput);
