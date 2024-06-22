@@ -41,6 +41,7 @@ function insertAtCaret(input) {
     if (display.value.length < settings.maxlengthinput) {
         let selection = [display.selectionStart, display.selectionEnd];
         display.value = display.value.slice(0, selection[0]) + input + display.value.slice(selection[1]);
+        
         display.setSelectionRange(selection[0] + input.length, selection[0] + input.length);
     }
 }
@@ -53,15 +54,16 @@ function insertAtPosition(input, position) {
 }
 
 function deleteSelectionOrAtCaret() {
-    let sel = display.selectionStart;
-    const currentValue = display.value
     if (display.selectionStart < display.selectionEnd) {
-        display.value = currentValue.slice(0, display.selectionStart) + currentValue.slice(display.selectionEnd);
+        deleteSelection();
     } else {
         deleteAtCaretPosition(offset = 0);
     }
-    display.focus();
-    display.setSelectionRange(sel, sel);
+}
+
+function deleteSelection() {
+    display.value = display.value.slice(0, display.selectionStart) + display.value.slice(display.selectionEnd);
+    display.setSelectionRange(display.selectionStart, display.selectionStart);
 }
 
 function deleteAtCaretPosition(offset = 0) {
