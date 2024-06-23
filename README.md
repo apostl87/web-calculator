@@ -1,15 +1,11 @@
-# 🚀 Welcome to your new awesome project!
+# Local installation
 
-This project has been created using **webpack-cli**, you can now run
+Navigate to the root of this application:
 
-```
-npm run build
-```
+>>> npm install
 
-or
+# Development server
 
-```
-yarn build
-```
+Starting a light-weight development server:
 
-to bundle your application
+>>> npm run simple
