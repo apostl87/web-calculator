@@ -1,12 +1,12 @@
 {
-  "dependencies": {
-    "mathjs": "^13.0.0",
-    "http-server": "^14.1.1",
-  },
-  "scripts": {
-    "simple": "http-server ./src -o",
-  },
   "version": "0.1.0",
   "description": "A simple calculator web application",
-  "name": "Calculator"
+  "name": "Calculator",
+  "dependencies": {
+    "mathjs": "^13.0.0",
+    "http-server": "^14.1.1"
+  },
+  "scripts": {
+    "start": "http-server -o"
+  }
 }
