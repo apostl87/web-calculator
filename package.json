@@ -1,9 +1,12 @@
 {
   "dependencies": {
     "mathjs": "^13.0.0",
-    "webpack-dev-server": "^5.0.4"
+    "http-server": "^14.1.1",
   },
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.js"
-  }
+    "simple": "http-server ./src -o",
+  },
+  "version": "0.1.0",
+  "description": "A simple calculator web application",
+  "name": "Calculator"
 }
