@@ -12,4 +12,4 @@ Navigate to the root of this application:
 
 Run the application on a local light-weight web server
 
-<code>npm run start</code>
+<code>npm start</code>
