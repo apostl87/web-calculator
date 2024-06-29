@@ -27,6 +27,7 @@ function doCalculation() {
             lastResult = 0;
         }
     } catch (error) {
+        console.log(error);
         result.value = 'Syntax Error';
     }
     display.setSelectionRange(0, display.value.length);
